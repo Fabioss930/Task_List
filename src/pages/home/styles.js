@@ -12,3 +12,11 @@ export const ComponentUser = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const Body = styled.div`
+  display: flex;
+  background: #f1f5f9;
+  width: 100em;
+  height: 100em;
+  margin: 0;
+`;
