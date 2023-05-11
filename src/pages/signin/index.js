@@ -4,8 +4,6 @@ import Button from "../../components/Button";
 import * as C from "./styles";
 import {Link, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import logo from './Task-List-(nome) 1.png';
-import logosmall from './Task-List 1.png';
 
 const Signin = () => {
 
@@ -32,13 +30,9 @@ const Signin = () => {
 
   };
 
-
   return(
-    <C.Page>
-      <C.Image><img src={logo} className="App-logo" alt="logo" /></C.Image>
     <C.Container>
-    <C.Image2><img src={logosmall} className="App-logo" alt="logo" /></C.Image2>
-      <C.Label>Faça seu Login</C.Label>
+      <C.Label>SISTEMA DE LOGIN</C.Label>
       <C.Content>
         <Input
         type="email"
@@ -63,10 +57,8 @@ const Signin = () => {
 
       </C.Content>
     </C.Container>
-    </C.Page>
     
   );
 };
-
 
 export default Signin
