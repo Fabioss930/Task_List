@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,9 +7,18 @@ import Drawer from "@mui/material/Drawer";
 import TaskCard from "../../components/taskCard";
 import IconUser from "@mui/icons-material/Person";
 import { Body, ComponentToolBar, ComponentUser } from "./styles";
+import ButtonModal from "../../components/Button";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const Home = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const drawerWidth = 240;
+
   return (
     <>
       <Body>
@@ -25,6 +34,17 @@ const Home = () => {
           >
             <Toolbar>
               <ComponentToolBar>
+                <ButtonModal
+                  Text="Criar tarefa"
+                  style={{
+                    backgroundColor: "#12A454",
+                    width: 144,
+                    height: 33,
+                    marginRight: 220,
+                    borderRadius: 8,
+                  }}
+                  onClick={handleShow}
+                />
                 <ComponentUser>
                   <div
                     style={{
