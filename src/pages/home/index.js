@@ -8,9 +8,8 @@ import TaskCard from "../../components/taskCard";
 import IconUser from "@mui/icons-material/Person";
 import { Body, ComponentToolBar, ComponentUser } from "./styles";
 import ButtonModal from "../../components/Button";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import ModalForm from "../../components/Modal";
+
 
 const Home = () => {
   const [show, setShow] = useState(false);
@@ -22,7 +21,7 @@ const Home = () => {
   return (
     <>
       <Body>
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", zIndex: 1 }}>
           <CssBaseline />
           <AppBar
             position="fixed"
@@ -35,7 +34,7 @@ const Home = () => {
             <Toolbar>
               <ComponentToolBar>
                 <ButtonModal
-                  Text="Criar tarefa"
+                  Text="Criar"
                   style={{
                     backgroundColor: "#12A454",
                     width: 144,
@@ -72,10 +71,11 @@ const Home = () => {
             anchor="left"
           ></Drawer>
         </Box>
-
-        <TaskCard />
-      </Body>
-    </>
+      <TaskCard />
+      
+      <ModalForm show={show} onHide={handleClose} onClick={handleClose}/>
+    </Body>
+  </>
   );
 };
 

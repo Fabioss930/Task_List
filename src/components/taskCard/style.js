@@ -39,7 +39,6 @@ export const Title = styled.div`
   font-weight: bold;
   color: #000000;
   font-size: 18px;
-  font-family: "Sans-Serif";
   margin-top: 19px;
 `;
 
