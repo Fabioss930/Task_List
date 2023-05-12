@@ -4,12 +4,14 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const ControlledOpenSelect =()=> {
-  const [age, setAge] = React.useState('');
+const ControlledOpenSelect =({value, onChange})=> {
+  const [status, setStatus] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    const selectedValue = event.target.value;
+    setStatus(selectedValue);
+    onChange(selectedValue)
   };
 
   const handleClose = () => {
@@ -31,13 +33,13 @@ const ControlledOpenSelect =()=> {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={age}
-          label="Age"
+          value={value}
+          label="Status"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Pendente</MenuItem>
-          <MenuItem value={20}>Em progresso</MenuItem>
-          <MenuItem value={30}>Concluído</MenuItem>
+          <MenuItem value={'Pendente'}>Pendente</MenuItem>
+          <MenuItem value={'Em progresso'}>Em progresso</MenuItem>
+          <MenuItem value={'Concluído'}>Concluído</MenuItem>
         </Select>
       </FormControl>
     </div>
