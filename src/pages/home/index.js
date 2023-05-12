@@ -10,10 +10,8 @@ import { Body, ComponentToolBar, ComponentUser } from "./styles";
 import ButtonModal from "../../components/Button";
 import ModalForm from "../../components/Modal";
 
-
 const Home = () => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const drawerWidth = 240;
@@ -71,11 +69,11 @@ const Home = () => {
             anchor="left"
           ></Drawer>
         </Box>
-      <TaskCard />
-      
-      <ModalForm show={show} onHide={handleClose} onClick={handleClose}/>
-    </Body>
-  </>
+        <TaskCard />
+
+        <ModalForm show={show} onHide={handleClose} onClick={handleClose} />
+      </Body>
+    </>
   );
 };
 
