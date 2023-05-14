@@ -3,16 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import SelectStatus from '../../components/Select';
-import uuid from 'react-uuid';
-import {useNavigate} from "react-router-dom";
+
+import useAuth from "../../hooks/useAuth";
 
 const ModalForm = ({ show, onHide, onClick }) => {
-  const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
-  const [showModal, setShowModal] = useState();
-  const handleClose = () => setShowModal(false);
- 
+  const { handleSaveForm } = useAuth();
+
   const setField = (field, value) => {
     setForm({
       ...form,
@@ -31,46 +29,14 @@ const ModalForm = ({ show, onHide, onClick }) => {
     const { title, description, status } = form;
     const newError = {};
 
-    if (!title || title === '') 
-      newError.title = 'Título obrigatório!';
-    if (!description || description === '')
-      newError.description = 'Descrição obrigatória!';
-    if(!status || status === '')
-    newError.status = 'Status obrigatório!'
+    if (!title || title === "") newError.title = "Título obrigatório!";
+    if (!description || description === "")
+      newError.description = "Descrição obrigatória!";
+    if (!status || status === "") newError.status = "Status obrigatório!";
 
     return newError;
   };
 
-  const handleSaveForm =(form)=> {
-    const data = new Date();
-    const formatData = Intl.DateTimeFormat('pt-br', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-
-    }).format(new Date(data))
-    const newForm = {
-      id: String(uuid()),
-      title: form.title,
-      description: form.description,
-      data: formatData,
-      status: form.status
-    }
-
-    try {
-      const data = localStorage.getItem('task');
-      const currentData = data ? JSON.parse(data) : [];
-      const dataFormatted = [...currentData, newForm];
-      localStorage.setItem('task', JSON.stringify(dataFormatted));
-      alert('salvo com sucesso!');
-      setShowModal(false);
-      
-    } catch (error) {
-      console.log(error);
-      alert("Atenção!", "Não foi possível salvar, favor tente novamente");
-    }
-  } 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     const formErrors = validateForm();
@@ -80,7 +46,6 @@ const ModalForm = ({ show, onHide, onClick }) => {
       handleSaveForm(form);
     }
   };
-  
 
   return (
     <>
@@ -96,12 +61,12 @@ const ModalForm = ({ show, onHide, onClick }) => {
                 type="text"
                 placeholder="Titulo da tarefa"
                 autoFocus
-                onChange={(e) => setField('title', e.target.value)}
+                onChange={(e) => setField("title", e.target.value)}
                 isInvalid={!!errors.title}
               />
               <Form.Control.Feedback
                 type="invalid"
-                style={{ display: 'block' }}
+                style={{ display: "block" }}
               >
                 {errors.title}
               </Form.Control.Feedback>
@@ -114,28 +79,30 @@ const ModalForm = ({ show, onHide, onClick }) => {
                 rows={3}
                 placeholder="Descrição da tarefa"
                 type="text"
-                onChange={(e) => setField('description', e.target.value)}
+                onChange={(e) => setField("description", e.target.value)}
                 isInvalid={!!errors.description}
               />
               <Form.Control.Feedback
                 type="invalid"
-                style={{ display: 'block' }}
+                style={{ display: "block" }}
               >
                 {errors.description}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId='status'>
-            <SelectStatus onChange={(selected) => {
-              setField('status', selected)
-            }} value={form.status || ''}/>
-             <Form.Control.Feedback
+            <Form.Group className="mb-3" controlId="status">
+              <SelectStatus
+                onChange={(selected) => {
+                  setField("status", selected);
+                }}
+                value={form.status || ""}
+              />
+              <Form.Control.Feedback
                 type="invalid"
-                style={{ display: 'block' }}
+                style={{ display: "block" }}
               >
                 {errors.status}
               </Form.Control.Feedback>
-              
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>

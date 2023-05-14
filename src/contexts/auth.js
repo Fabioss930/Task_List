@@ -1,9 +1,12 @@
 import { createContext, useEffect, useState } from "react";
+import uuid from "react-uuid";
+import toast, { Toaster } from "react-hot-toast";
 
 export const Authcontext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
+  const [openModal, setOpenModal] = useState(true);
 
   useEffect(() => {
     const userToken = localStorage.getItem("user_token");
@@ -62,9 +65,59 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user_token");
   };
 
+  const notify = () => {
+    const sleep = new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    });
+    toast.promise(sleep, {
+      loading: "Salvando...",
+      success: <b>Salvo com sucesso!</b>,
+      error: <b>Não foi possivel salvar, favor tente novamente!</b>,
+    });
+  };
+
+  const handleSaveForm = (form) => {
+    const data = new Date();
+    const formatData = Intl.DateTimeFormat("pt-br", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(data));
+    const newForm = {
+      id: String(uuid()),
+      title: form.title,
+      description: form.description,
+      data: formatData,
+      status: form.status,
+    };
+
+    try {
+      const data = localStorage.getItem("task");
+      const currentData = data ? JSON.parse(data) : [];
+      const dataFormatted = [...currentData, newForm];
+      localStorage.setItem("task", JSON.stringify(dataFormatted));
+      notify();
+    } catch (error) {
+      notify();
+      console.log(error);
+      alert("Atenção!", "Não foi possível salvar, favor tente novamente");
+    } finally {
+      setOpenModal(false);
+    }
+  };
+
   return (
     <Authcontext.Provider
-      value={{ user, signed: !!user, signin, signup, signout }}
+      value={{
+        user,
+        signed: !!user,
+        signin,
+        signup,
+        signout,
+        handleSaveForm,
+        openModal,
+        setOpenModal,
+      }}
     >
       {children}
     </Authcontext.Provider>
