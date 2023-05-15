@@ -17,6 +17,8 @@ import ButtonModal from '../../components/Button';
 import ModalForm from '../../components/Modal/SaveTask';
 import useAuth from '../../hooks/useAuth';
 import { Toaster } from 'react-hot-toast';
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 
 const Home = () => {
   const [show, setShow] = useState(false);
@@ -38,8 +40,7 @@ const Home = () => {
       setOpenModal(true);
     }
 
-    // localStorage.removeItem("task");
-  }, [openModal]);
+    }, [openModal]);
 
   const getTaskLocalStorage = async () => {
     const data = await localStorage.getItem('task');
@@ -116,7 +117,7 @@ const Home = () => {
 
         {task.length > 0 ? (
           <Container>
-            {!isLoading &&
+            {!isLoading ? (
               task.map((item) => {
                 return (
                   <TaskCard
@@ -129,7 +130,19 @@ const Home = () => {
                     // onClick={handleShowRemove}
                   />
                 );
-              })}
+              })
+            ) : (
+              <Backdrop
+                sx={{
+                  color: '#fff',
+                  zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={isLoading}
+                onClick={handleClose}
+              >
+                <CircularProgress color="inherit" />
+              </Backdrop>
+            )}
           </Container>
         ) : (
           <EmptyList>
@@ -138,11 +151,7 @@ const Home = () => {
         )}
 
         <ModalForm show={show} onHide={handleClose} onClick={handleClose} />
-        {/* <RemoveTask
-          id={task.map((item) => item.id)}
-          show={showModalRemove}
-          onHide={handleCloseRemove}
-        /> */}
+      
         <Toaster />
       </Body>
     </>

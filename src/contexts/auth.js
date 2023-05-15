@@ -6,6 +6,7 @@ export const Authcontext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
+  const [taskEdit, setTaskEdit] = useState({});
   const [openModal, setOpenModal] = useState(true);
   const [openModalDelete, setOpenModalDelete] = useState(true);
 
@@ -123,6 +124,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const handleEditTask =(id)=> {
+    try {
+      const data = localStorage.getItem("task");
+      const response = data ? JSON.parse(data) : [];
+      const newData = response.find((item) => item.id === id);
+      setTaskEdit(newData);
+      
+    } catch (error) {
+      console.log(error);
+      toast.error("Desculpe! Erro ao tentar editar este item, tente novamente");
+    }
+    return;
+  }
+
   return (
     <Authcontext.Provider
       value={{
@@ -137,6 +152,9 @@ export const AuthProvider = ({ children }) => {
         openModalDelete,
         setOpenModalDelete,
         handleDeleteTask,
+        handleEditTask,
+        taskEdit,
+        setTaskEdit
       }}
     >
       {children}

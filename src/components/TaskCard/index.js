@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -8,7 +8,6 @@ import {
   Content,
   Data,
   Description,
-  EmptyList,
   Header,
   Option,
   Status,
@@ -17,15 +16,23 @@ import {
 
 import RemoveTask from '../Modal/RemoveTask';
 import useAuth from '../../hooks/useAuth';
+import EditTask from '../Modal/EditTask';
 
 const TaskCard = ({ id, status, title, data, description, onClick }) => {
   const [showModalRemove, setShowModalRemove] = useState(false);
+  const [show, setShow] = useState(false);
   const handleShowRemove = () => setShowModalRemove(true);
   const handleCloseRemove = () => setShowModalRemove(false);
-  const { handleDeleteTask } = useAuth();
-  const [pending, setPending] = useState('Pendente');
-  const [progress, setProgress] = useState('Em progresso');
-  const [concluded, setConcluded] = useState('Concluído');
+  const handleClose = () => setShow(false);
+  
+  const { handleDeleteTask, handleEditTask } = useAuth();
+
+  const handleShow = async (id) => {
+    setShow(true);
+    await handleEditTask(id);
+
+  }
+  
   const DeleteTask = async (id) => {
     await handleDeleteTask(id);
   };
@@ -35,14 +42,16 @@ const TaskCard = ({ id, status, title, data, description, onClick }) => {
       <Card id={id}>
         <Content>
           <Header>
-               <Status color={status}>
-                  <div>{status}</div>
-                </Status>
+            <Status color={status}>
+              <div>{status}</div>
+            </Status>
             <Option>
-              <EditIcon style={{ cursor: 'pointer' }} />
+              <button onClick={()=> handleShow(id)} style={{ all: 'unset' }}>
+                <EditIcon style={{ cursor: 'pointer' }} />
+              </button>
               <button onClick={handleShowRemove} style={{ all: 'unset' }}>
                 <DeleteOutlineIcon
-                  style={{ cursor: 'pointer', color: 'red', marginLeft: 3 }}
+                  style={{ cursor: 'pointer', color: '#f23838', marginLeft: 3 }}
                 ></DeleteOutlineIcon>
               </button>
             </Option>
@@ -66,6 +75,8 @@ const TaskCard = ({ id, status, title, data, description, onClick }) => {
         onClick={() => DeleteTask(id)}
         onClickCapture={handleCloseRemove}
       />
+
+      <EditTask show={show} onClick={handleClose} onHide={handleClose} key={id}/>
     </Container>
   );
 };
