@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const RemoveTask = ({ show, onClick, onHide, id }) => {
-  const [showModalRemove, setShowModalRemove] = useState(false);
-  const handleCloseRemove = () => setShowModalRemove(false);
+
+const RemoveTask = ({ show, onClick, onHide, id, onClickCapture }) => {
+  
   return (
     <>
       <Modal show={show} onHide={onHide} id={id}>
@@ -13,7 +13,7 @@ const RemoveTask = ({ show, onClick, onHide, id }) => {
         </Modal.Header>
         <Modal.Body>Deseja realmente remover esse item?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseRemove}>
+          <Button variant="secondary" onClickCapture={onClickCapture}>
             Cancelar
           </Button>
           <Button variant="primary" onClick={onClick}>

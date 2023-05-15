@@ -98,6 +98,7 @@ export const AuthProvider = ({ children }) => {
       const dataFormatted = [...currentData, newForm];
       localStorage.setItem("task", JSON.stringify(dataFormatted));
       notify();
+      
     } catch (error) {
       notify();
       console.log(error);

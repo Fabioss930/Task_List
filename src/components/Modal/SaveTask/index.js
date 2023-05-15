@@ -44,10 +44,11 @@ const ModalForm = ({ show, onHide, onClick }) => {
       setErrors(formErrors);
     } else {
       handleSaveForm(form);
+      setTimeout(function () {
+        setForm("");
+      }, 1000);
     }
-    setTimeout(function () {
-      setForm("");
-    }, 1000);
+    
   };
 
   return (

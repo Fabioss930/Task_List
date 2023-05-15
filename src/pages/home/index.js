@@ -1,16 +1,22 @@
-import React, { useEffect, useState, useCallback, useFocusEffect } from "react";
-import Box from "@mui/material/Box";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import CssBaseline from "@mui/material/CssBaseline";
-import Drawer from "@mui/material/Drawer";
-import TaskCard from "../../components/TaskCard";
-import IconUser from "@mui/icons-material/Person";
-import { Body, ComponentToolBar, ComponentUser, Container } from "./styles";
-import ButtonModal from "../../components/Button";
-import ModalForm from "../../components/Modal/SaveTask";
-import useAuth from "../../hooks/useAuth";
-import { Toaster } from "react-hot-toast";
+import React, { useEffect, useState, useCallback, useFocusEffect } from 'react';
+import Box from '@mui/material/Box';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import CssBaseline from '@mui/material/CssBaseline';
+import Drawer from '@mui/material/Drawer';
+import TaskCard from '../../components/TaskCard';
+import IconUser from '@mui/icons-material/Person';
+import {
+  Body,
+  ComponentToolBar,
+  ComponentUser,
+  Container,
+  EmptyList,
+} from './styles';
+import ButtonModal from '../../components/Button';
+import ModalForm from '../../components/Modal/SaveTask';
+import useAuth from '../../hooks/useAuth';
+import { Toaster } from 'react-hot-toast';
 
 const Home = () => {
   const [show, setShow] = useState(false);
@@ -36,7 +42,7 @@ const Home = () => {
   }, [openModal]);
 
   const getTaskLocalStorage = async () => {
-    const data = await localStorage.getItem("task");
+    const data = await localStorage.getItem('task');
     const taskList = data ? JSON.parse(data) : [];
 
     setTask(taskList);
@@ -57,14 +63,14 @@ const Home = () => {
   return (
     <>
       <Body>
-        <Box sx={{ display: "flex", zIndex: 1 }}>
+        <Box sx={{ display: 'flex', zIndex: 1 }}>
           <CssBaseline />
           <AppBar
             position="fixed"
             sx={{
               width: `calc(100% - ${drawerWidth}px)`,
               ml: `${drawerWidth}px`,
-              backgroundColor: "#FFFFFF",
+              backgroundColor: '#FFFFFF',
             }}
           >
             <Toolbar>
@@ -72,7 +78,7 @@ const Home = () => {
                 <ButtonModal
                   Text="Criar"
                   style={{
-                    backgroundColor: "#12A454",
+                    backgroundColor: '#12A454',
                     width: 144,
                     height: 33,
                     marginRight: 220,
@@ -97,10 +103,10 @@ const Home = () => {
             sx={{
               width: drawerWidth,
               flexShrink: 0,
-              "& .MuiDrawer-paper": {
+              '& .MuiDrawer-paper': {
                 width: drawerWidth,
-                boxSizing: "border-box",
-                backgroundColor: "#121620",
+                boxSizing: 'border-box',
+                backgroundColor: '#121620',
               },
             }}
             variant="permanent"
@@ -108,22 +114,28 @@ const Home = () => {
           ></Drawer>
         </Box>
 
-        <Container>
-          {!isLoading &&
-            task.map((item) => {
-              return (
-                <TaskCard
-                  id={item.id}
-                  key={item.id}
-                  status={item.status}
-                  title={item.title}
-                  data={item.data}
-                  description={item.description}
-                  // onClick={handleShowRemove}
-                />
-              );
-            })}
-        </Container>
+        {task.length > 0 ? (
+          <Container>
+            {!isLoading &&
+              task.map((item) => {
+                return (
+                  <TaskCard
+                    id={item.id}
+                    key={item.id}
+                    status={item.status}
+                    title={item.title}
+                    data={item.data}
+                    description={item.description}
+                    // onClick={handleShowRemove}
+                  />
+                );
+              })}
+          </Container>
+        ) : (
+          <EmptyList>
+            <h1>Nenhum item foi encontrado :(</h1>
+          </EmptyList>
+        )}
 
         <ModalForm show={show} onHide={handleClose} onClick={handleClose} />
         {/* <RemoveTask

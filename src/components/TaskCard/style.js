@@ -34,9 +34,9 @@ export const Status = styled.div`
   align-items: center;
   width: 120px;
   height: 30px;
-  background: #12a454;
   border-radius: 24px;
   color: #ffff;
+  background: ${({color})=> color === 'Pendente' ? '#8692A6': color === 'Em progresso' ? '#2C73EB': '#12A454'};
   font-weight: bold;
   font-size: 14px;
 `;
@@ -59,8 +59,3 @@ export const Description = styled.div`
   margin-top: 16px;
 `;
 
-export const EmptyList = styled.div`
-  font-weight: bold;
-  font-size: 18px;
-  margin: 150px 28px;
-`;

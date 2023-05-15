@@ -18,11 +18,23 @@ export const Body = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
+  
 `;
 
 export const Container = styled.div`
-  margin-top: 150px;
   display: flex;
   flex-wrap: wrap;
+  margin: 150px 30px;
 `;
+
+export const EmptyList = styled.div`
+  font-weight: bold;
+  font-size: 18px;
+  color: #858482;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+ `;
 
