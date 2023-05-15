@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -15,11 +15,24 @@ import {
   Title,
 } from "./style";
 
-const TaskCard = ({ status, title, data, description }) => {
+import RemoveTask from "../Modal/RemoveTask";
+import useAuth from "../../hooks/useAuth";
+
+const TaskCard = ({ id, status, title, data, description, onClick }) => {
+  const [showModalRemove, setShowModalRemove] = useState(false);
+  const handleShowRemove = () => setShowModalRemove(true);
+  const handleCloseRemove = () => setShowModalRemove(false);
+  const [task, setTask] = useState([]);
+  const { handleDeleteTask } = useAuth();
+
+  const DeleteTask = async (id) => {
+    handleDeleteTask(id);
+  };
+
   return (
     <Container>
       {status ? (
-        <Card>
+        <Card id={id}>
           <Content>
             <Header>
               <Status>
@@ -27,9 +40,11 @@ const TaskCard = ({ status, title, data, description }) => {
               </Status>
               <Option>
                 <EditIcon style={{ cursor: "pointer" }} />
-                <DeleteOutlineIcon
-                  style={{ cursor: "pointer", color: "red" }}
-                />
+                <button onClick={handleShowRemove} style={{ all: "unset" }}>
+                  <DeleteOutlineIcon
+                    style={{ cursor: "pointer", color: "red" }}
+                  ></DeleteOutlineIcon>
+                </button>
               </Option>
             </Header>
 
@@ -49,6 +64,11 @@ const TaskCard = ({ status, title, data, description }) => {
           <span>Nada ainda</span>
         </EmptyList>
       )}
+      <RemoveTask
+        show={showModalRemove}
+        onHide={handleCloseRemove}
+        onClick={() => DeleteTask(id)}
+      />
     </Container>
   );
 };

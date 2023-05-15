@@ -7,6 +7,7 @@ export const Authcontext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [openModal, setOpenModal] = useState(true);
+  const [openModalDelete, setOpenModalDelete] = useState(true);
 
   useEffect(() => {
     const userToken = localStorage.getItem("user_token");
@@ -106,6 +107,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const handleDeleteTask = (id) => {
+    try {
+      const data = localStorage.getItem("task");
+      const response = data ? JSON.parse(data) : [];
+      const newData = response.filter((item) => item.id !== id);
+      localStorage.setItem("task", JSON.stringify(newData));
+      toast.success("Item excluído com sucesso!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Desculpe! Não foi possível excluir este item");
+    } finally {
+      setOpenModalDelete(false);
+    }
+  };
+
   return (
     <Authcontext.Provider
       value={{
@@ -117,6 +133,9 @@ export const AuthProvider = ({ children }) => {
         handleSaveForm,
         openModal,
         setOpenModal,
+        openModalDelete,
+        setOpenModalDelete,
+        handleDeleteTask,
       }}
     >
       {children}

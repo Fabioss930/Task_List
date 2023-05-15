@@ -6,26 +6,22 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Drawer from "@mui/material/Drawer";
 import TaskCard from "../../components/TaskCard";
 import IconUser from "@mui/icons-material/Person";
-import {
-  Body,
-  ComponentToolBar,
-  ComponentUser,
-  Container,
-  ContainerBox,
-  EmptyList,
-} from "./styles";
+import { Body, ComponentToolBar, ComponentUser, Container } from "./styles";
 import ButtonModal from "../../components/Button";
-import ModalForm from "../../components/Modal";
+import ModalForm from "../../components/Modal/SaveTask";
 import useAuth from "../../hooks/useAuth";
 import { Toaster } from "react-hot-toast";
 
 const Home = () => {
   const [show, setShow] = useState(false);
-  const { openModal, setOpenModal, handleSaveForm } = useAuth();
-  const { isLoading, setIsLoading } = useState(true);
-  const handleClose = () => setShow(false);
   const [task, setTask] = useState([]);
+  const { openModal, setOpenModal, openModalDelete, setOpenModalDelete } =
+    useAuth();
+  const { isLoading, setIsLoading } = useState(true);
+
+  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const drawerWidth = 230;
 
   useEffect(() => {
@@ -52,6 +48,11 @@ const Home = () => {
       getTaskLocalStorage();
     }, 1000);
   }, [openModal]);
+
+  useEffect(() => {
+    getTaskLocalStorage();
+    setOpenModalDelete(true);
+  }, [openModalDelete]);
 
   return (
     <>
@@ -112,17 +113,24 @@ const Home = () => {
             task.map((item) => {
               return (
                 <TaskCard
+                  id={item.id}
                   key={item.id}
                   status={item.status}
                   title={item.title}
                   data={item.data}
                   description={item.description}
+                  // onClick={handleShowRemove}
                 />
               );
             })}
         </Container>
 
         <ModalForm show={show} onHide={handleClose} onClick={handleClose} />
+        {/* <RemoveTask
+          id={task.map((item) => item.id)}
+          show={showModalRemove}
+          onHide={handleCloseRemove}
+        /> */}
         <Toaster />
       </Body>
     </>

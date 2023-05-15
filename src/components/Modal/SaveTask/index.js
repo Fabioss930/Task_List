@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import SelectStatus from '../../components/Select';
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+import SelectStatus from "../../Select";
 
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 
 const ModalForm = ({ show, onHide, onClick }) => {
   const [form, setForm] = useState({});
@@ -45,6 +45,9 @@ const ModalForm = ({ show, onHide, onClick }) => {
     } else {
       handleSaveForm(form);
     }
+    setTimeout(function () {
+      setForm("");
+    }, 1000);
   };
 
   return (
