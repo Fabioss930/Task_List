@@ -36,33 +36,31 @@ const Signin = () => {
   return(
     <C.Page>
       <C.Image><img src={logo} className="App-logo" alt="logo" /></C.Image>
-    <C.Container>
     <C.Image2><img src={logosmall} className="App-logo" alt="logo" /></C.Image2>
       <C.Label>Faça seu Login</C.Label>
-      <C.Content>
+      <C.Label2>Email</C.Label2>
+      <C.Label3>Senha</C.Label3>
+      <C.Entry1>
         <Input
         type="email"
-        placeholder="Digite seu E-mail"
         value={email}
         onChange={(e) =>[setEmail(e.target.value), setError("")]}
         />
+        </C.Entry1>
+        <C.Entry2>
         <Input
         type="password"
-        placeholder="Digite sua Senha"
         value={senha}
         onChange={(e) => [setSenha(e.target.value), setError("")]}
         />
+        </C.Entry2>
         <C.LabelError>{error}</C.LabelError>
+        <C.Button>
         <Button Text="Entrar" onClick={handleLogin} />
-        <C.LabelSignup>
-          Não tem uma conta?
+        </C.Button>
           <C.Strong>
-            <Link to="/signup">&nbsp;Registre-se</Link>
+            <Link to="/signup">Criar conta</Link>
           </C.Strong>
-        </C.LabelSignup>
-
-      </C.Content>
-    </C.Container>
     </C.Page>
     
   );

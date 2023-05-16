@@ -36,46 +36,39 @@ const Signup = () => {
 
   return (
     <C.Page>
-      <C.Image>
-        <img src={logo} className="App-logo" alt="logo" />
-      </C.Image>
-      <C.Container>
-        <C.Image2>
-          <img src={logosmall} className="App-logo" alt="logo" />
-        </C.Image2>
-        <C.Label>Crie sua conta</C.Label>
-        <C.Content>
-          <Input
-            type="email"
-            placeholder="Digite seu E-mail"
-            value={email}
-            onChange={(e) => [setEmail(e.target.value), setError("")]}
-          />
+    <C.Image><img src={logo} className="App-logo" alt="logo" /></C.Image>
+    <C.Image2><img src={logosmall} className="App-logo" alt="logo" /></C.Image2>
+      <C.Label>Crie sua conta</C.Label>
+      <C.Label1>Nome</C.Label1>
+      <C.Label2>Email</C.Label2>
+      <C.Label3>Senha</C.Label3>
+      <C.Entry1>
+        <Input
+        type="email"
+        value={email}
+        onChange={(e) => [setEmail(e.target.value), setError("")]}/>
+      </C.Entry1>
+      <C.Entry2>
+        <Input
+        type="email"
+        value={emailConf}
+        onChange={(e) => [setEmailConf(e.target.value), setError("")]}/>
+      </C.Entry2>
 
-          <Input
-            type="email"
-            placeholder="Confirme seu E-mail"
-            value={emailConf}
-            onChange={(e) => [setEmailConf(e.target.value), setError("")]}
-          />
-
-          <Input
-            type="password"
-            placeholder="Digite sua Senha"
-            value={senha}
-            onChange={(e) => [setSenha(e.target.value), setError("")]}
-          />
-          <C.LabelError>{error}</C.LabelError>
-          <Button Text="Inscrever-se" onClick={handleSignup} />
-          <C.LabelSignup>
-            Já tem uma conta?
-            <C.Strong>
-              <Link to="/">&nbsp;Entre</Link>
-            </C.Strong>
-          </C.LabelSignup>
-        </C.Content>
-      </C.Container>
-    </C.Page>
+      <C.Entry3>
+        <Input
+        type="password"
+        value={senha}
+        onChange={(e) => [setSenha(e.target.value), setError("")]}/>
+      </C.Entry3>
+        <C.LabelError>{error}</C.LabelError>
+        <C.Button>
+        <Button Text="Inscrever-se" onClick={handleSignup} />
+        </C.Button>
+          <C.Strong>
+            <Link to="/">Voltar para o login</Link>
+          </C.Strong>
+   </C.Page>
   );
 };
 
