@@ -41,8 +41,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signup = (email, password) => {
-    const usersStorage = JSON.parse(localStorage.getItem("users_db"));
+  const signup = (nome, email, password) => {
+
+    try {
+      const usersStorage = JSON.parse(localStorage.getItem("users_db"));
 
     const hasUser = usersStorage?.filter((user) => user.email === email);
 
@@ -53,13 +55,17 @@ export const AuthProvider = ({ children }) => {
     let newUser;
 
     if (usersStorage) {
-      newUser = [...usersStorage, { email, password }];
+      newUser = [...usersStorage, {nome, email, password }];
     } else {
-      newUser = [{ email, password }];
+      newUser = [{nome, email, password }];
     }
-
     localStorage.setItem("users_db", JSON.stringify(newUser));
-
+    
+    } catch (error) {
+      console.log(error);
+      
+    }
+    
     return;
   };
 

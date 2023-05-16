@@ -19,18 +19,25 @@ import useAuth from '../../hooks/useAuth';
 import { Toaster } from 'react-hot-toast';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
+import BasicMenu from '../../components/Menu';
 
 const Home = () => {
   const [show, setShow] = useState(false);
   const [task, setTask] = useState([]);
-  const { openModal, setOpenModal, openModalDelete, setOpenModalDelete, openModalEdit } =
+  const [ isLoading, setIsLoading ] = useState(true);
+  const { openModal, setOpenModal, openModalDelete, setOpenModalDelete, openModalEdit, signout } =
     useAuth();
-  const { isLoading, setIsLoading } = useState(true);
-
+  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const drawerWidth = 230;
+  const handleCloseMenu = () => setAnchorEl(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   useEffect(() => {
     if (openModal === false) {
@@ -38,10 +45,8 @@ const Home = () => {
         setShow(false);
       }, 1000);
       setOpenModal(true);
-      
     }
-
-    }, [openModal]);
+  }, [openModal]);
 
    
 
@@ -107,7 +112,10 @@ const Home = () => {
                   >
                     Fabio
                   </div>
-                  <IconUser />
+                  <button onClick={handleClick}  style={{ all: 'unset' }} aria-controls={open ? 'basic-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined}>
+                  <IconUser style={{ cursor: 'pointer' }} />
+                  </button>
+                  <BasicMenu onClick={signout} open={open} onClose={handleCloseMenu} anchorEl={anchorEl}/>
                 </ComponentUser>
               </ComponentToolBar>
             </Toolbar>

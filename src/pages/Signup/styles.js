@@ -1,215 +1,89 @@
-import styled from "styled-components";
-
-
+import styled from 'styled-components';
 
 export const Page = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  
+`;
 
- position: absolute;
- width: 755px;
- height: 713px;
- left: 0px;
- top: 0px;
+export const ContentLogo = styled.div`
+  width: 50vw;
+  height: 100vh;
+  background: linear-gradient(0deg, #1a202e, #1a202e), url(london.jpg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
- background: linear-gradient(0deg, #1A202E, #1A202E), url(london.jpg);
+export const ContentForm = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 50vw;
+`;
+
+export const Form = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+
+export const Image = styled.div`
+ width: 464px;
+ height: 349px;
  `;
 
- export const Image = styled.div`
+export const Image2 = styled.div`
+  max-width: 130px;
+  width: 100%;
+  
+  
+`;
 
- position: absolute;
-width: 464px;
-height: 349px;
-left: 154px;
-top: 180px;
- `;
+export const Label = styled.label`
 
-
- export const Image2 = styled.div`
- position: absolute;
- width: 0px;
- height: 0px;
- left: 1058px;
- top: 10px;
- 
- `;
-
-
- export const Label = styled.label`
-
-position: absolute;
-  width: 400px;
-  height: 230px;
-  left: 1016px;
-  top: 132px;
-  font-size: 40px;
-  font-weight: 600;
-  color: #000000;;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 39px;
+  line-height: 48px;
   display: flex;
   align-items: center;
-
-
 `;
 
-export const Label1 = styled.label`
-position: absolute;
-width: 46px;
-height: 19px;
-left: 944px;
-top: 290px;
-
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-display: flex;
-align-items: center;
-
-color: #696F79;
-
- `;
-
- export const Label2 = styled.label`
- position: absolute;
- width: 41px;
- height: 19px;
- left: 946px;
- top: 400px;
- 
- font-style: normal;
- font-weight: 500;
- font-size: 16px;
- line-height: 19px;
- display: flex;
- align-items: center;
- 
- color: #696F79;
- 
-
- `;
-
- export const Label3 = styled.label`
- position: absolute;
- width: 48px;
- height: 19px;
- left: 946px;
- top: 500px;
- 
- font-style: normal;
- font-weight: 500;
- font-size: 16px;
- line-height: 19px;
- display: flex;
- align-items: center;
- 
- color: #696F79;
-
- `;
-
- export const Entry1 = styled.div`
- box-sizing: border-box;
-
- position: absolute;
- width: 426px;
- height: 64px;
- left: 945px;
- top: 315px;
- 
- border: 1px solid #8692A6;
- border-radius: 6px;
- 
- `;
-
- export const Entry2 = styled.div`
- box-sizing: border-box;
-
- position: absolute;
- width: 426px;
- height: 64px;
- left: 946px;
- top: 420px;
- 
- border: 1px solid #8692A6;
- border-radius: 6px;
- `;
-
- export const Entry3 = styled.div`
- box-sizing: border-box;
-
-position: absolute;
-width: 426px;
-height: 64px;
-left: 946px;
-top: 520px;
-
-border: 1px solid #8692A6;
-border-radius: 6px;
- `;
-
-
-
-
-export const Content = styled.div`
-
-gap: 15px;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-width: 100%;
-box-shadow: 0 1px 2px #0003;
-background-color: white;
-max-width: 350px;
-padding: 20px;
-border-radius: 5px;
-
+export const LabelImput = styled.label`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #696f79;
+  width: 100%;
+  padding: 14px 0;
 `;
 
-
-export const LabelSignup = styled.label`
-
-font-size: 16px;
-color: #676767;
-
+export const Entry1 = styled.div`
+  box-sizing: border-box;
+  width: 426px;
+  
+  border: 1px solid #8692a6;
+  border-radius: 6px;
 `;
 
 export const LabelError = styled.label`
-
-position: absolute;
-width: 426px;
-height: 64px;
-left: 1060px;
-top: 280px;
-
- font-size: 14px;
- color: red;
-
+  font-size: 14px;
+  color: red;
 `;
-
-export const Button = styled.label`
-
- position: absolute;
-width: 426px;
-height: 64px;
-left: 980px;
-top: 600px;
-
- `;
 
 export const Strong = styled.strong`
-
-position: absolute;
-width: 200px;
-height: 19px;
-left: 1100px;
-top: 670px;
-
-font-style: normal;
-font-weight: 500;
-font-size: 14px;
-line-height: 19px;
-display: flex;
-align-items: center;
-
-color: #2C73EB;
-
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  color: #2c73eb;
+  margin-top: 30px;
 `;
-
