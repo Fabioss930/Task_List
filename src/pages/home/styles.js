@@ -14,9 +14,27 @@ export const ComponentUser = styled.div`
 `;
 
 export const Body = styled.div`
-  display: flex;
   background: #f1f5f9;
-  width: 100em;
-  height: 100em;
-  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  
 `;
+
+export const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 150px 30px;
+`;
+
+export const EmptyList = styled.div`
+  font-weight: bold;
+  font-size: 18px;
+  color: #858482;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+ `;
+
