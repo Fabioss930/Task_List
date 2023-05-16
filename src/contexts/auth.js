@@ -7,6 +7,7 @@ export const Authcontext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [taskEdit, setTaskEdit] = useState({});
+  const [openModalEdit, setOpenModalEdit] = useState(true);
   const [openModal, setOpenModal] = useState(true);
   const [openModalDelete, setOpenModalDelete] = useState(true);
 
@@ -78,6 +79,17 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const notifyEdit = () => {
+    const sleep = new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    });
+    toast.promise(sleep, {
+      loading: "Editando...",
+      success: <b>Editado com sucesso!</b>,
+      error: <b>Não foi possivel editar este item, favor tente novamente!</b>,
+    });
+  };
+
   const handleSaveForm = (form) => {
     const data = new Date();
     const formatData = Intl.DateTimeFormat("pt-br", {
@@ -138,6 +150,27 @@ export const AuthProvider = ({ children }) => {
     return;
   }
 
+  const handleEditTaskSave = (form) => {
+    try {
+    const data = localStorage.getItem("task");
+    const response = data ? JSON.parse(data) : [];
+    const newData = response.map((item) => {
+      if(item.id === taskEdit.id) {
+        return {...item, title: form.title, description: form.description, status: form.status}
+      }
+      return item;
+    });
+    const dataFormatted = JSON.stringify(newData);
+    localStorage.setItem("task", dataFormatted);
+    notifyEdit();
+    } catch (error) {
+      console.log(error);
+      toast.error("Desculpe! Erro ao tentar editar este item, tente novamente");
+    } finally {
+      setOpenModalEdit(false);
+    }
+  }
+ 
   return (
     <Authcontext.Provider
       value={{
@@ -154,7 +187,10 @@ export const AuthProvider = ({ children }) => {
         handleDeleteTask,
         handleEditTask,
         taskEdit,
-        setTaskEdit
+        setTaskEdit,
+        handleEditTaskSave,
+        openModalEdit,
+        setOpenModalEdit
       }}
     >
       {children}

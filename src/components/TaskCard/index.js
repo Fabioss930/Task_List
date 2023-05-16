@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -18,14 +18,15 @@ import RemoveTask from '../Modal/RemoveTask';
 import useAuth from '../../hooks/useAuth';
 import EditTask from '../Modal/EditTask';
 
-const TaskCard = ({ id, status, title, data, description, onClick }) => {
+const TaskCard = ({ id, status, title, data, description }) => {
   const [showModalRemove, setShowModalRemove] = useState(false);
   const [show, setShow] = useState(false);
   const handleShowRemove = () => setShowModalRemove(true);
   const handleCloseRemove = () => setShowModalRemove(false);
   const handleClose = () => setShow(false);
   
-  const { handleDeleteTask, handleEditTask } = useAuth();
+  const { handleDeleteTask, handleEditTask, openModalEdit,
+    setOpenModalEdit } = useAuth();
 
   const handleShow = async (id) => {
     setShow(true);
@@ -36,6 +37,17 @@ const TaskCard = ({ id, status, title, data, description, onClick }) => {
   const DeleteTask = async (id) => {
     await handleDeleteTask(id);
   };
+
+  useEffect(() => {
+    if (openModalEdit === false) {
+      setTimeout(function () {
+        setShow(false);
+      }, 1000);
+      setOpenModalEdit(true);
+      
+    }
+
+    }, [openModalEdit]);
 
   return (
     <Container>

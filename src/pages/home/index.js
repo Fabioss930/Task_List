@@ -23,7 +23,7 @@ import Backdrop from '@mui/material/Backdrop';
 const Home = () => {
   const [show, setShow] = useState(false);
   const [task, setTask] = useState([]);
-  const { openModal, setOpenModal, openModalDelete, setOpenModalDelete } =
+  const { openModal, setOpenModal, openModalDelete, setOpenModalDelete, openModalEdit } =
     useAuth();
   const { isLoading, setIsLoading } = useState(true);
 
@@ -38,9 +38,12 @@ const Home = () => {
         setShow(false);
       }, 1000);
       setOpenModal(true);
+      
     }
 
     }, [openModal]);
+
+   
 
   const getTaskLocalStorage = async () => {
     const data = await localStorage.getItem('task');
@@ -54,7 +57,16 @@ const Home = () => {
     setTimeout(function () {
       getTaskLocalStorage();
     }, 1000);
+    
   }, [openModal]);
+
+  useEffect(() => {
+    setTimeout(function () {
+      getTaskLocalStorage();
+    }, 1000);
+    
+  }, [openModalEdit]);
+
 
   useEffect(() => {
     getTaskLocalStorage();

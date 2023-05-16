@@ -10,7 +10,7 @@ const EditTask = ({ show, onHide, onClick }) => {
   const [form, setForm] = useState({});
   
   const [errors, setErrors] = useState({});
-  const { handleSaveForm, taskEdit } = useAuth();
+  const { taskEdit, handleEditTaskSave } = useAuth();
 
   const setField = (field, value) => {
     setForm({
@@ -48,7 +48,7 @@ const EditTask = ({ show, onHide, onClick }) => {
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
     } else {
-      handleSaveForm(form);
+      handleEditTaskSave(form);
       setTimeout(function () {
         setForm("");
       }, 1000);
@@ -62,6 +62,8 @@ const EditTask = ({ show, onHide, onClick }) => {
       status: taskEdit.status || '',
     });
   }, [taskEdit]);
+
+  
   
   
   return (
