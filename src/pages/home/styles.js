@@ -38,3 +38,13 @@ export const EmptyList = styled.div`
   height: 100vh;
  `;
 
+ export const ComponentLogo = styled.div`
+  border-bottom: 2px solid #f1f5f9;
+  margin-top: 40px;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+ `;
+

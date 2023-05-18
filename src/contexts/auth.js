@@ -6,6 +6,8 @@ export const Authcontext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
+  const [user_id, setUser_Id] = useState();
+  const [nameUser, setNameUser] = useState('');
   const [taskEdit, setTaskEdit] = useState({});
   const [openModalEdit, setOpenModalEdit] = useState(true);
   const [openModal, setOpenModal] = useState(true);
@@ -16,22 +18,39 @@ export const AuthProvider = ({ children }) => {
     const usersStorage = localStorage.getItem("users_db");
 
     if (userToken && usersStorage) {
-      const hasUser = JSON.parse(usersStorage)?.filter(
+      const hasUser = JSON.parse(usersStorage).filter(
         (user) => user.email === JSON.parse(userToken).email
       );
-      if (hasUser) setUser(hasUser[0]);
+      console.log('hasUser',  hasUser);
+      const id_user = hasUser.find(item => item);
+      setUser_Id(id_user.id);
+      if (hasUser) setUser(hasUser);
+      const name = hasUser.find(
+        (user) => user
+      );
+      const firstName = name.name.split(' ');
+      setNameUser(firstName[0])
+
     }
   }, []);
 
+  useEffect(() => {
+    
+  },[user_id])
+
   const signin = (email, password) => {
     const usersStorage = JSON.parse(localStorage.getItem("users_db"));
-    const hasUser = usersStorage?.filter((user) => user.email === email);
-
-    if (hasUser?.length) {
-      if (hasUser[0].email === email && hasUser[0].password === password) {
+    const hasUser = usersStorage.find((user) => user.email === email);
+    setUser_Id(hasUser.id);
+    if (hasUser) {
+      if (hasUser.email === email && hasUser.password === password) {
         const token = Math.random().toString(36).substring(2);
         localStorage.setItem("user_token", JSON.stringify({ email, token }));
         setUser({ email, password });
+        
+        
+        const firstName = hasUser.name.split(' ');
+        setNameUser(firstName[0]);
         return;
       } else {
         return "E-mail ou senha incorretos";
@@ -41,26 +60,29 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signup = (nome, email, password) => {
+  const signup = (name, email, password) => {
 
     try {
-      const usersStorage = JSON.parse(localStorage.getItem("users_db"));
-
+    const usersStorage = JSON.parse(localStorage.getItem("users_db"));
     const hasUser = usersStorage?.filter((user) => user.email === email);
 
     if (hasUser?.length) {
       return "Já tem uma conta com esse E-mail";
     }
-
     let newUser;
-
+    let firstName;
     if (usersStorage) {
-      newUser = [...usersStorage, {nome, email, password }];
+      newUser = [...usersStorage, {id:String(uuid()), name, email, password }];
+      firstName = name.split(' ');
+      setNameUser(firstName[0]);
+     
     } else {
-      newUser = [{nome, email, password }];
+      newUser = [{id:String(uuid()), name, email, password }];
+      firstName = name.split(' ');
+      setNameUser(firstName[0]); 
+     
     }
     localStorage.setItem("users_db", JSON.stringify(newUser));
-    
     } catch (error) {
       console.log(error);
       
@@ -97,6 +119,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const handleSaveForm = (form) => {
+    const dataKey = `task_user${user_id}`
     const data = new Date();
     const formatData = Intl.DateTimeFormat("pt-br", {
       day: "numeric",
@@ -112,10 +135,10 @@ export const AuthProvider = ({ children }) => {
     };
 
     try {
-      const data = localStorage.getItem("task");
+      const data = localStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
       const dataFormatted = [...currentData, newForm];
-      localStorage.setItem("task", JSON.stringify(dataFormatted));
+      localStorage.setItem(dataKey, JSON.stringify(dataFormatted));
       notify();
       
     } catch (error) {
@@ -129,10 +152,11 @@ export const AuthProvider = ({ children }) => {
 
   const handleDeleteTask = (id) => {
     try {
-      const data = localStorage.getItem("task");
+      const dataKey = `task_user${user_id}`
+      const data = localStorage.getItem(dataKey);
       const response = data ? JSON.parse(data) : [];
       const newData = response.filter((item) => item.id !== id);
-      localStorage.setItem("task", JSON.stringify(newData));
+      localStorage.setItem(dataKey, JSON.stringify(newData));
       toast.success("Item excluído com sucesso!");
     } catch (error) {
       console.log(error);
@@ -144,7 +168,8 @@ export const AuthProvider = ({ children }) => {
 
   const handleEditTask =(id)=> {
     try {
-      const data = localStorage.getItem("task");
+      const dataKey = `task_user${user_id}`
+      const data = localStorage.getItem(dataKey);
       const response = data ? JSON.parse(data) : [];
       const newData = response.find((item) => item.id === id);
       setTaskEdit(newData);
@@ -158,7 +183,8 @@ export const AuthProvider = ({ children }) => {
 
   const handleEditTaskSave = (form) => {
     try {
-    const data = localStorage.getItem("task");
+    const dataKey = `task_user${user_id}`
+    const data = localStorage.getItem(dataKey);
     const response = data ? JSON.parse(data) : [];
     const newData = response.map((item) => {
       if(item.id === taskEdit.id) {
@@ -167,7 +193,7 @@ export const AuthProvider = ({ children }) => {
       return item;
     });
     const dataFormatted = JSON.stringify(newData);
-    localStorage.setItem("task", dataFormatted);
+    localStorage.setItem(dataKey, dataFormatted);
     notifyEdit();
     } catch (error) {
       console.log(error);
@@ -196,7 +222,9 @@ export const AuthProvider = ({ children }) => {
         setTaskEdit,
         handleEditTaskSave,
         openModalEdit,
-        setOpenModalEdit
+        setOpenModalEdit,
+        nameUser,
+        user_id
       }}
     >
       {children}

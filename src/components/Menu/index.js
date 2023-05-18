@@ -5,16 +5,8 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 
-const BasicMenu = ({ open, handleClick, handleClose, anchorEl, onClickCapture, onClose, onClick }) => {
-  // const [anchorEl, setAnchorEl] = React.useState(null);
-  // const open = Boolean(anchorEl);
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-  // const handleClose = () => {
-  //   setAnchorEl(null);
-  // };
-
+const BasicMenu = ({ open, anchorEl, onClickCapture, onClose, onClick }) => {
+ 
   return (
     <Menu
       id="account-menu"
