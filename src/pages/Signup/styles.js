@@ -87,3 +87,13 @@ export const Strong = styled.strong`
   color: #2c73eb;
   margin-top: 30px;
 `;
+
+export const ComponentLinkBack = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #8692A6;
+  font-style: normal;
+
+`;

@@ -70,8 +70,8 @@ const Signin = () => {
         <Button Text="Entrar" onClick={handleLogin} style={{background: '#1A202E', marginTop: 40}} />
    
       <C.Strong>
-        <Link to="/signup" style={{textDecoration: 'none'}}>
-          <div >Criar conta</div>
+        <Link to="/signup" style={{textDecoration: 'none', fontSize: 14}}>
+          <div>Criar conta</div>
         </Link>
       </C.Strong>
       </C.Form>

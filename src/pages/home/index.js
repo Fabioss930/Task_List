@@ -86,10 +86,6 @@ const Home = () => {
     setOpenModalDelete(true);
   }, [openModalDelete]);
 
-  
- 
- 
-
   return (
     <>
       {!isLoading ? (
