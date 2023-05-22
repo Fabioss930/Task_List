@@ -59,12 +59,12 @@ const TaskCard = ({ id, status, title, data, description }) => {
             </Status>
             <Option>
               <button onClick={()=> handleShow(id)} style={{ all: 'unset' }}>
-                <EditIcon style={{ cursor: 'pointer' }} />
+                <EditIcon style={{ cursor: 'pointer' }} className='button-option' />
               </button>
               <button onClick={handleShowRemove} style={{ all: 'unset' }}>
                 <DeleteOutlineIcon
-                  style={{ cursor: 'pointer', color: '#f23838', marginLeft: 3 }}
-                ></DeleteOutlineIcon>
+                  style={{ cursor: 'pointer', color: '#f23838', marginLeft: 3 }} className='button-option'
+                />
               </button>
             </Option>
           </Header>

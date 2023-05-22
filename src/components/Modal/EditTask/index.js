@@ -103,7 +103,9 @@ const EditTask = ({ show, onHide, onClick }) => {
                 type="text"
                 onChange={(e) => setField("description", e.target.value)}
                 isInvalid={!!errors.description}
+                maxLength={100}
               />
+              <span style={{fontSize: 12,color: '#858482'}}>Max 100 caracteres</span>
               <Form.Control.Feedback
                 type="invalid"
                 style={{ display: "block" }}

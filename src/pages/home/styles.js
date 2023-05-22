@@ -24,7 +24,7 @@ export const Body = styled.div`
 export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 150px 30px;
+  margin: 120px 30px;
 `;
 
 export const EmptyList = styled.div`
@@ -36,5 +36,27 @@ export const EmptyList = styled.div`
   justify-content: center;
   width: 100vw;
   height: 100vh;
+ `;
+
+ export const ComponentLogo = styled.div`
+  border-bottom: 2px solid #f1f5f9;
+  margin-top: 40px;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+ `;
+
+ export const ContentTask = styled.div`
+    display: block;
+ `;
+
+ export const QtdTask = styled.div`
+    position: relative;
+    top: 100px;
+    left: 30px;
+    font-size: 36px;
+    font-weight: 700;
  `;
 
