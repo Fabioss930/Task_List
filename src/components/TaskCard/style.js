@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+ 
+`;
 
 export const Card = styled.div`
   display: flex;
@@ -19,6 +21,14 @@ export const Content = styled.div`
 export const Option = styled.div`
   display: flex;
   margin: 15px 0px;
+  
+  .button-option {
+    transition: all .2s ease-in-out;
+    &:hover {
+      transform: scale(1.2);
+      filter: brightness(0.9);
+    }
+  }
 `;
 
 export const Header = styled.div`
@@ -57,5 +67,9 @@ export const Description = styled.div`
   font-size: 14px;
   color: #363f5f;
   margin-top: 16px;
+
+  div {
+    word-break: break-all;
+  }
 `;
 

@@ -12,7 +12,9 @@ import {
   ComponentToolBar,
   ComponentUser,
   Container,
+  ContentTask,
   EmptyList,
+  QtdTask,
 } from './styles';
 import ButtonModal from '../../components/Button';
 import ModalForm from '../../components/Modal/SaveTask';
@@ -22,12 +24,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import BasicMenu from '../../components/Menu';
 import RouterBreadcrumbs from '../../components/BreadcrumbsDrawer';
-import LogoSmall from "../../assets/Task-List 3.svg";
+import LogoSmall from '../../assets/Task-List 3.svg';
 
 const Home = () => {
   const [show, setShow] = useState(false);
   const [task, setTask] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [qtdTask, setQtdTask] = useState(0);
 
   const {
     openModal,
@@ -64,6 +67,7 @@ const Home = () => {
     const dataKey = `task_user${user_id}`;
     const data = await localStorage.getItem(dataKey);
     const taskList = data ? JSON.parse(data) : [];
+    setQtdTask(taskList.length);
 
     setTask(taskList);
     setIsLoading(false);
@@ -103,13 +107,13 @@ const Home = () => {
               <Toolbar>
                 <ComponentToolBar>
                   <ButtonModal
-                    Text="Criar"
+                    Text="Criar tarefa"
                     style={{
                       backgroundColor: '#12A454',
                       width: 144,
                       height: 33,
                       marginRight: 220,
-                      borderRadius: 8,
+                      borderRadius: 4,
                     }}
                     onClick={handleShow}
                   />
@@ -144,50 +148,52 @@ const Home = () => {
               sx={{
                 width: drawerWidth,
                 flexShrink: 0,
-               '& .MuiDrawer-paper': {
+                '& .MuiDrawer-paper': {
                   width: drawerWidth,
                   display: 'flex',
-                  
+
                   alignItems: 'center',
                   boxSizing: 'border-box',
                   backgroundColor: '#121620',
-                  color: '#f1f5f9;' ,
-                  
-                  
+                  color: '#f1f5f9;',
                 },
               }}
               variant="permanent"
               anchor="left"
             >
-          <ComponentLogo>
-           <img src={LogoSmall} className="App-logo" alt="logo"  />
-          </ComponentLogo>
-          <RouterBreadcrumbs/>
-         
+              <ComponentLogo>
+                <img src={LogoSmall} className="App-logo" alt="logo" />
+              </ComponentLogo>
+              <RouterBreadcrumbs />
             </Drawer>
           </Box>
 
           {task.length > 0 ? (
-            <Container>
-              {task.map((item) => {
-                return (
-                  <TaskCard
-                    id={item.id}
-                    key={item.id}
-                    status={item.status}
-                    title={item.title}
-                    data={item.data}
-                    description={item.description}
-                  />
-                );
-              })}
-            </Container>
+            <ContentTask>
+              <QtdTask>
+                <span>{qtdTask}</span>
+                <span> tarefa</span>
+              </QtdTask>
+              <Container>
+                {task.map((item) => {
+                  return (
+                    <TaskCard
+                      id={item.id}
+                      key={item.id}
+                      status={item.status}
+                      title={item.title}
+                      data={item.data}
+                      description={item.description}
+                    />
+                  );
+                })}
+              </Container>
+            </ContentTask>
           ) : (
             <EmptyList>
               <h1>Nenhum item foi encontrado :(</h1>
             </EmptyList>
           )}
-        
         </Body>
       ) : (
         <Backdrop
@@ -201,8 +207,8 @@ const Home = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
       )}
-        <ModalForm show={show} onHide={handleClose} onClick={handleClose} />
-        <Toaster />
+      <ModalForm show={show} onHide={handleClose} onClick={handleClose} />
+      <Toaster />
     </>
   );
 };
