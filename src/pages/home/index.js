@@ -41,6 +41,8 @@ const Home = () => {
     signout,
     nameUser,
     user_id,
+    handleFilterTask,
+    taskFilter
   } = useAuth();
 
   const handleClose = () => setShow(false);
@@ -73,6 +75,7 @@ const Home = () => {
     setIsLoading(false);
   };
 
+
   useEffect(() => {
     setTimeout(function () {
       getTaskLocalStorage();
@@ -89,6 +92,14 @@ const Home = () => {
     getTaskLocalStorage();
     setOpenModalDelete(true);
   }, [openModalDelete]);
+
+  useEffect(() => {
+    if(taskFilter) {
+      setTask(taskFilter);
+      setQtdTask(taskFilter.length);
+    } 
+  }, [taskFilter]);
+
 
   return (
     <>
@@ -151,7 +162,6 @@ const Home = () => {
                 '& .MuiDrawer-paper': {
                   width: drawerWidth,
                   display: 'flex',
-
                   alignItems: 'center',
                   boxSizing: 'border-box',
                   backgroundColor: '#121620',
@@ -172,7 +182,7 @@ const Home = () => {
             <ContentTask>
               <QtdTask>
                 <span>{qtdTask}</span>
-                <span> tarefa</span>
+                <span> resultado</span>
               </QtdTask>
               <Container>
                 {task.map((item) => {
@@ -202,7 +212,6 @@ const Home = () => {
             zIndex: (theme) => theme.zIndex.drawer + 1,
           }}
           open={true}
-          // onClick={handleClose}
         >
           <CircularProgress color="inherit" />
         </Backdrop>

@@ -17,6 +17,17 @@ const Signup = () => {
   const navigate = useNavigate();
   const { signup, signin } = useAuth();
 
+  const notify = () => {
+    const sleep = new Promise((resolve) => {
+      setTimeout(resolve, 1100);
+    });
+    toast.promise(sleep, {
+      loading: 'Salvando...',
+      success: <b>Usuário cadastrado com sucesso!</b>,
+      error: <b>Erro ao cadastrar, favor tente novamente!</b>,
+    });
+  };
+
   const handleSignup = () => {
     if (!email | !nome | !senha) {
       setError('Preencha todos os campos');
@@ -28,9 +39,10 @@ const Signup = () => {
       setError(res);
       return;
     }
-    toast.success('Conta cadastrada com sucesso!');
+    notify();
     signin(email, senha);
     navigate('/home');
+    
   };
 
   return (

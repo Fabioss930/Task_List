@@ -24,10 +24,9 @@ const Signin = () => {
 
     const res = signin(email, senha);
     if (res) {
-      toast.error("Usúario não cadastrado!")
+      toast.error("Usuário não cadastrado!")
       return;
     }
-
     navigate('/home');
   };
 
