@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
 
   const signin = (email, password) => {
     const usersStorage = JSON.parse(localStorage.getItem('users_db'));
-    const hasUser = usersStorage.find((user) => user.email === email);
+    const hasUser = usersStorage ? usersStorage.find((user) => user.email === email): '';
     setUser_Id(hasUser.id);
     if (hasUser) {
       if (hasUser.email === email && hasUser.password === password) {
@@ -72,6 +72,7 @@ export const AuthProvider = ({ children }) => {
         ];
         firstName = name.split(' ');
         setNameUser(firstName[0]);
+        
       } else {
         newUser = [{ id: String(uuid()), name, email, password }];
         firstName = name.split(' ');
