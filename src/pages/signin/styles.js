@@ -14,7 +14,13 @@ export const ContentLogo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media(max-width: 976px) {
+    display: none;
+  }
 `;
+
+
 
 export const ContentForm = styled.div`
   display: flex;
@@ -23,6 +29,11 @@ export const ContentForm = styled.div`
   flex-direction: column;
   height: 100vh;
   width: 50vw;
+  
+  @media(max-width: 976px) {
+    width: 100%;
+  }
+
 `;
 
 export const Form = styled.div`
@@ -34,25 +45,25 @@ export const Form = styled.div`
 
 
 export const Image = styled.div`
- width: 464px;
- height: 349px;
- `;
+  width: 100%; 
+  text-align: center;
+`;
 
 export const Image2 = styled.div`
-  max-width: 130px;
-  width: 100%;
-  
   
 `;
 
 export const Label = styled.label`
-
   font-style: normal;
   font-weight: 700;
   font-size: 39px;
   line-height: 48px;
   display: flex;
   align-items: center;
+
+  @media(max-width: 526px) {
+    font-size: 35px;
+  }
 `;
 
 export const LabelImput = styled.label`
@@ -63,14 +74,21 @@ export const LabelImput = styled.label`
   color: #696f79;
   width: 100%;
   padding: 14px 0;
+
+  @media(max-width: 526px) {
+    font-size: 14px;
+  }
 `;
 
 export const Entry1 = styled.div`
   box-sizing: border-box;
   width: 426px;
-  
   border: 1px solid #8692a6;
   border-radius: 6px;
+
+  @media(max-width: 526px) {
+    width: 100%;
+  }
 `;
 
 export const LabelError = styled.label`
