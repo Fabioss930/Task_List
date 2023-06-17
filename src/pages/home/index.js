@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Drawer from '@mui/material/Drawer';
 import TaskCard from '../../components/TaskCard';
 import IconUser from '@mui/icons-material/Person';
+import Typography from "@mui/material/Typography";
 import {
   Body,
   ComponentLogo,
@@ -15,18 +16,21 @@ import {
   ContentTask,
   EmptyList,
   QtdTask,
-} from './styles';
-import ButtonModal from '../../components/Button';
-import ModalForm from '../../components/Modal/SaveTask';
-import useAuth from '../../hooks/useAuth';
-import { Toaster } from 'react-hot-toast';
-import CircularProgress from '@mui/material/CircularProgress';
-import Backdrop from '@mui/material/Backdrop';
-import BasicMenu from '../../components/Menu';
-import RouterBreadcrumbs from '../../components/BreadcrumbsDrawer';
-import LogoSmall from '../../assets/Task-List 3.svg';
+} from "./styles";
+import ButtonModal from "../../components/Button";
+import ModalForm from "../../components/Modal/SaveTask";
+import useAuth from "../../hooks/useAuth";
+import PropTypes from "prop-types";
+import { Toaster } from "react-hot-toast";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
+import BasicMenu from "../../components/Menu";
+import RouterBreadcrumbs from "../../components/BreadcrumbsDrawer";
+import LogoSmall from "../../assets/Task-List 3.svg";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 
-const Home = () => {
+const Home = (props) => {
   const [show, setShow] = useState(false);
   const [task, setTask] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +46,7 @@ const Home = () => {
     nameUser,
     user_id,
     handleFilterTask,
-    taskFilter
+    taskFilter,
   } = useAuth();
 
   const handleClose = () => setShow(false);
@@ -54,6 +58,12 @@ const Home = () => {
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
   useEffect(() => {
@@ -75,7 +85,6 @@ const Home = () => {
     setIsLoading(false);
   };
 
-
   useEffect(() => {
     setTimeout(function () {
       getTaskLocalStorage();
@@ -94,88 +103,139 @@ const Home = () => {
   }, [openModalDelete]);
 
   useEffect(() => {
-    if(taskFilter) {
+    if (taskFilter) {
       setTask(taskFilter);
       setQtdTask(taskFilter.length);
-    } 
+    }
   }, [taskFilter]);
 
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <>
       {!isLoading ? (
         <Body>
-          <Box sx={{ display: 'flex', zIndex: 1 }}>
+          <Box sx={{ display: "flex", zIndex: 1 }}>
             <CssBaseline />
             <AppBar
               position="fixed"
               sx={{
-                width: `calc(100% - ${drawerWidth}px)`,
+                width: "100%",
                 ml: `${drawerWidth}px`,
-                backgroundColor: '#FFFFFF',
+                backgroundColor: "#FFFFFF",
               }}
             >
               <Toolbar>
-                <ComponentToolBar>
-                  <ButtonModal
-                    Text="Criar tarefa"
-                    style={{
-                      backgroundColor: '#12A454',
-                      width: 144,
-                      height: 33,
-                      marginRight: 220,
-                      borderRadius: 4,
-                    }}
-                    onClick={handleShow}
-                  />
-                  <ComponentUser>
-                    <div
+                <IconButton
+                  color="rgba(0, 0, 0, 0.54);"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                  sx={{ mr: 2, display: { sm: "none" } }}
+                >
+                  <MenuIcon />
+                </IconButton>
+
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="div"
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    width: "100%",
+                  }}
+                >
+                  <ComponentToolBar>
+                    <ButtonModal
+                      Text="Criar tarefa"
                       style={{
-                        marginRight: 18,
+                        backgroundColor: "#12A454",
+                        width: 144,
+                        height: 33,
+                        marginRight: 32,
+                        borderRadius: 4,
                       }}
-                    >
-                      {!isLoading ? nameUser : ''}
-                    </div>
-                    <button
-                      onClick={handleClick}
-                      style={{ all: 'unset' }}
-                      aria-controls={open ? 'basic-menu' : undefined}
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
-                    >
-                      <IconUser style={{ cursor: 'pointer' }} />
-                    </button>
-                    <BasicMenu
-                      onClick={signout}
-                      open={open}
-                      onClose={handleCloseMenu}
-                      anchorEl={anchorEl}
+                      onClick={handleShow}
                     />
-                  </ComponentUser>
-                </ComponentToolBar>
+
+                    <ComponentUser>
+                      <div style={{ marginRight: 6 }}>
+                        {!isLoading ? nameUser : ""}
+                      </div>
+                      <button
+                        onClick={handleClick}
+                        style={{ all: "unset" }}
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                      >
+                        <IconUser style={{ cursor: "pointer" }} />
+                      </button>
+                      <BasicMenu
+                        onClick={signout}
+                        open={open}
+                        onClose={handleCloseMenu}
+                        anchorEl={anchorEl}
+                      />
+                    </ComponentUser>
+                  </ComponentToolBar>
+                </Typography>
               </Toolbar>
             </AppBar>
-            <Drawer
-              sx={{
-                width: drawerWidth,
-                flexShrink: 0,
-                '& .MuiDrawer-paper': {
-                  width: drawerWidth,
-                  display: 'flex',
-                  alignItems: 'center',
-                  boxSizing: 'border-box',
-                  backgroundColor: '#121620',
-                  color: '#f1f5f9;',
-                },
-              }}
-              variant="permanent"
-              anchor="left"
+            <Box
+              component="nav"
+              sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+              aria-label="mailbox folders"
             >
-              <ComponentLogo>
-                <img src={LogoSmall} className="App-logo" alt="logo" />
-              </ComponentLogo>
-              <RouterBreadcrumbs />
-            </Drawer>
+              <Drawer
+                container={container}
+                variant="temporary"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
+                }}
+                sx={{
+                  display: { xs: "block", sm: "none" },
+                  "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                    backgroundColor: "#121620",
+                    color: "#f1f5f9;",
+                    display: "flex",
+                    alignItems: "center",
+                  },
+                }}
+              >
+                <ComponentLogo>
+                  <img src={LogoSmall} className="App-logo" alt="logo" />
+                </ComponentLogo>
+                <RouterBreadcrumbs />
+              </Drawer>
+              <Drawer
+                sx={{
+                  display: { xs: "none", sm: "block" },
+
+                  "& .MuiDrawer-paper": {
+                    width: drawerWidth,
+                    boxSizing: "border-box",
+                    backgroundColor: "#121620",
+                    color: "#f1f5f9;",
+                    display: "flex",
+                    alignItems: "center",
+                  },
+                }}
+                open
+                variant="permanent"
+              >
+                <ComponentLogo>
+                  <img src={LogoSmall} className="App-logo" alt="logo" />
+                </ComponentLogo>
+                <RouterBreadcrumbs />
+              </Drawer>
+            </Box>
           </Box>
 
           {task.length > 0 ? (
@@ -208,7 +268,7 @@ const Home = () => {
       ) : (
         <Backdrop
           sx={{
-            color: '#fff',
+            color: "#fff",
             zIndex: (theme) => theme.zIndex.drawer + 1,
           }}
           open={true}
@@ -220,6 +280,14 @@ const Home = () => {
       <Toaster />
     </>
   );
+};
+
+Home.propTypes = {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
 };
 
 export default Home;

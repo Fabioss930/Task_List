@@ -20,7 +20,11 @@ function ListItemLink(props) {
   const { to, open, ...other } = props;
   let icon = null;
   if (open != null) {
-    icon = open ? <KeyboardArrowUpOutlinedIcon /> : <KeyboardArrowDownOutlinedIcon />;
+    icon = open ? (
+      <KeyboardArrowUpOutlinedIcon />
+    ) : (
+      <KeyboardArrowDownOutlinedIcon />
+    );
   }
 
   return (
@@ -32,10 +36,10 @@ function ListItemLink(props) {
         {...other}
         sx={{ fontWeight: 700 }}
       >
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <FormatListBulletedOutlinedIcon />
           <div style={{ marginLeft: 12 }}>Tarefas</div>
-          <div style={{ marginLeft: 112 }}>{icon}</div>
+          <div style={{ marginLeft: 105 }}>{icon}</div>
         </div>
       </ListItem>
     </li>
@@ -49,8 +53,7 @@ ListItemLink.propTypes = {
 
 export default function RouterBreadcrumbs() {
   const [open, setOpen] = useState(false);
-  const {handleFilterTask} = useAuth();
-  
+  const { handleFilterTask } = useAuth();
 
   const handleClick = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -60,10 +63,10 @@ export default function RouterBreadcrumbs() {
     <>
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
           fontWeight: 500,
-          fontFamily: 'sans-serif',
+          fontFamily: "sans-serif",
         }}
       >
         <Box
@@ -74,13 +77,13 @@ export default function RouterBreadcrumbs() {
           aria-label="mailbox folders"
         >
           <List>
-            <ListItemLink to="/home" open={open} onClickCapture={handleClick} />
+            <ListItemLink open={open} onClick={handleClick} />
             <Collapse component="li" in={open} timeout="auto" unmountOnExit>
               <List disablePadding>
                 <div
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
+                    display: "flex",
+                    alignItems: "center",
                     width: 250,
                     padding: 6,
                   }}
@@ -90,7 +93,7 @@ export default function RouterBreadcrumbs() {
                     component={RouterLink}
                     to="#"
                     sx={{ pl: 5 }}
-                    onClick={()=> handleFilterTask('pendente')}
+                    onClick={() => handleFilterTask("pendente")}
                   >
                     <PendingOutlinedIcon />
                     <div style={{ marginLeft: 12 }}>Pendente</div>
@@ -99,8 +102,8 @@ export default function RouterBreadcrumbs() {
                 </div>
                 <div
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
+                    display: "flex",
+                    alignItems: "center",
                     width: 250,
                     padding: 6,
                   }}
@@ -110,7 +113,7 @@ export default function RouterBreadcrumbs() {
                     component={RouterLink}
                     to="#"
                     sx={{ pl: 5 }}
-                    onClick={()=> handleFilterTask('progresso')}
+                    onClick={() => handleFilterTask("progresso")}
                   >
                     <CachedOutlinedIcon />
                     <div style={{ marginLeft: 12 }}>Em processo</div>
@@ -119,8 +122,8 @@ export default function RouterBreadcrumbs() {
                 </div>
                 <div
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
+                    display: "flex",
+                    alignItems: "center",
                     width: 250,
                     padding: 6,
                   }}
@@ -130,7 +133,7 @@ export default function RouterBreadcrumbs() {
                     component={RouterLink}
                     to="#"
                     sx={{ pl: 5 }}
-                    onClick={()=> handleFilterTask('concluido')}
+                    onClick={() => handleFilterTask("concluido")}
                   >
                     <CheckCircleOutlineOutlinedIcon />
                     <div style={{ marginLeft: 12 }}>Concluído</div>
@@ -139,8 +142,8 @@ export default function RouterBreadcrumbs() {
                 </div>
                 <div
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
+                    display: "flex",
+                    alignItems: "center",
                     width: 250,
                     padding: 6,
                   }}
@@ -150,7 +153,7 @@ export default function RouterBreadcrumbs() {
                     component={RouterLink}
                     to="#"
                     sx={{ pl: 5 }}
-                    onClick={()=> handleFilterTask('total')}
+                    onClick={() => handleFilterTask("total")}
                   >
                     <AssignmentOutlinedIcon />
                     <div style={{ marginLeft: 12 }}>Total</div>
