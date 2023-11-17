@@ -4,7 +4,7 @@ export const Page = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-  
+  background-color: #fffafa;
 `;
 
 export const ContentLogo = styled.div`
@@ -26,9 +26,10 @@ export const ContentForm = styled.div`
   align-items: center;
   flex-direction: column;
   height: 100vh;
-  width: 50vw;
+  width: 70vw;
 
   @media (max-width: 976px) {
+    margin: 0 16px;
     width: 100%;
   }
 `;
@@ -38,6 +39,7 @@ export const Form = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 `;
 
 export const Image = styled.div`
@@ -50,14 +52,19 @@ export const Image2 = styled.div``;
 export const Label = styled.label`
   font-style: normal;
   font-weight: 700;
-  font-size: 39px;
-  line-height: 48px;
+  font-size: 32px;
   display: flex;
   align-items: center;
+  margin-bottom: 52px;
 
   @media (max-width: 526px) {
     font-size: 35px;
   }
+`;
+
+export const LabelSecond = styled.label`
+  font-size: 20px;
+  font-weight: 400;
 `;
 
 export const LabelImput = styled.label`
