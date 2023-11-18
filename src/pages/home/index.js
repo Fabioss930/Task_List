@@ -52,7 +52,7 @@ const Home = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const drawerWidth = 301;
+  const drawerWidth = 300;
   const handleCloseMenu = () => setAnchorEl(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);

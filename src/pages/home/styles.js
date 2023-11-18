@@ -15,16 +15,21 @@ export const ComponentUser = styled.div`
 `;
 
 export const Body = styled.div`
-  background: #f1f5f9;
-  width: 100vw;
-  height: 100vh;
   display: flex;
+`;
+
+export const ContentTask = styled.div`
+  width: 100%;
+  height: 100vh;
+  max-width: 1100px;
 `;
 
 export const Container = styled.div`
   display: flex;
+
   flex-wrap: wrap;
-  margin: 120px 30px;
+
+  margin: 100px 20px;
 
   @media (max-width: 576px) {
     margin: 120px 10px;
@@ -55,9 +60,7 @@ export const ComponentLogo = styled.div`
   justify-content: center;
 `;
 
-export const ContentTask = styled.div`
-  display: block;
-`;
+
 
 export const QtdTask = styled.div`
   position: relative;

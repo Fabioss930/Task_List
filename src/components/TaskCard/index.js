@@ -58,12 +58,16 @@ const TaskCard = ({ id, status, title, data, description }) => {
               <div>{status}</div>
             </Status>
             <Option>
-              <button onClick={()=> handleShow(id)} style={{ all: 'unset' }}>
-                <EditIcon style={{ cursor: 'pointer' }} className='button-option' />
+              <button onClick={() => handleShow(id)} style={{ all: "unset" }}>
+                <EditIcon
+                  style={{ cursor: "pointer" }}
+                  className="button-option"
+                />
               </button>
-              <button onClick={handleShowRemove} style={{ all: 'unset' }}>
+              <button onClick={handleShowRemove} style={{ all: "unset" }}>
                 <DeleteOutlineIcon
-                  style={{ cursor: 'pointer', color: '#f23838', marginLeft: 3 }} className='button-option'
+                  style={{ cursor: "pointer", color: "#f23838", marginLeft: 3 }}
+                  className="button-option"
                 />
               </button>
             </Option>
@@ -88,7 +92,12 @@ const TaskCard = ({ id, status, title, data, description }) => {
         onClickCapture={handleCloseRemove}
       />
 
-      <EditTask show={show} onClick={handleClose} onHide={handleClose} key={id}/>
+      <EditTask
+        show={show}
+        onClick={handleClose}
+        onHide={handleClose}
+        key={id}
+      />
     </Container>
   );
 };

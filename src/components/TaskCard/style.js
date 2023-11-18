@@ -7,11 +7,11 @@ export const Container = styled.div`
 export const Card = styled.div`
   display: flex;
   width: 320px;
-  height: 230px;
+  height: 225px;
   border-radius: 4px;
   background: #ffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin: 10px 8px;
+  margin: 8px;
 `;
 
 export const Content = styled.div`
